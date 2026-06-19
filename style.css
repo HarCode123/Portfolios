@@ -1,0 +1,1056 @@
+/* ============================================================
+   HARINI S — PORTFOLIO STYLESHEET
+   ============================================================
+   TABLE OF CONTENTS
+   1.  CSS Variables (colours, shadows)
+   2.  Reset & Base
+   3.  Scrollbar
+   4.  Navigation
+   5.  Hero Section
+   6.  Photo Card
+   7.  Section Shared Styles
+   8.  Education
+   9.  Skills
+   10. Certifications
+   11. Projects
+   12. Internship Timeline
+   13. Extracurriculars
+   14. Online Profiles
+   15. Contact
+   16. Footer
+   17. Scroll Reveal Animation
+   18. Mobile / Responsive
+   ============================================================ */
+
+
+/* ============================================================
+   1. CSS VARIABLES
+   Change --green to update the entire colour theme at once!
+   ============================================================ */
+:root {
+  --bg:           #f5f9f6;   /* main page background */
+  --bg2:          #eef5f0;   /* alternate section background */
+  --white:        #ffffff;
+  --green:        #2e7d5e;   /* primary accent colour */
+  --green-light:  #4aa87e;   /* lighter hover shade */
+  --green-pale:   #d4ede2;   /* very light green for borders */
+  --green-mist:   #e8f5ee;   /* subtle green tint for badges/tags */
+  --text:         #1a2e24;   /* main text colour */
+  --text-mid:     #3d5c4a;   /* secondary text */
+  --muted:        #7a9988;   /* placeholder / muted text */
+  --border:       #c8dfd3;   /* card borders */
+  --shadow:       0 2px 20px rgba(46, 125, 94, 0.08);
+  --shadow-lg:    0 8px 40px rgba(46, 125, 94, 0.14);
+}
+
+
+/* ============================================================
+   2. RESET & BASE
+   ============================================================ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Outfit', sans-serif;
+  font-size: 16px;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+
+/* ============================================================
+   3. SCROLLBAR
+   ============================================================ */
+::-webkit-scrollbar        { width: 4px; }
+::-webkit-scrollbar-track  { background: var(--bg); }
+::-webkit-scrollbar-thumb  { background: var(--green-light); border-radius: 4px; }
+
+
+/* ============================================================
+   4. NAVIGATION
+   ============================================================ */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 200;
+  background: rgba(245, 249, 246, 0.93);
+  backdrop-filter: blur(18px);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 5rem;
+  height: 64px;
+}
+
+.nav-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--green);
+  text-decoration: none;
+}
+
+.nav-links {
+  display: flex;
+  gap: 0;
+  list-style: none;
+}
+
+.nav-links a {
+  display: block;
+  padding: .38rem 1rem;
+  text-decoration: none;
+  color: var(--muted);
+  font-size: .81rem;
+  font-weight: 500;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  border-radius: 20px;
+  transition: color .2s, background .2s;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: var(--green);
+  background: var(--green-mist);
+}
+
+/* "Contact" nav button — filled green pill */
+.nav-cta {
+  background: var(--green) !important;
+  color: #fff !important;
+  padding: .38rem 1.2rem !important;
+  border-radius: 20px !important;
+}
+.nav-cta:hover {
+  background: var(--green-light) !important;
+  color: #fff !important;
+}
+
+
+/* ============================================================
+   5. HERO SECTION
+   ============================================================ */
+#intro {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  align-items: center;
+  gap: 4rem;
+  padding: 8rem 5rem 5rem;
+  position: relative;
+}
+
+/* Decorative blurred circles in the background */
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.hbc {
+  position: absolute;
+  border-radius: 50%;
+}
+
+.hbc1 {
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(74, 168, 126, 0.13) 0%, transparent 70%);
+  top: -120px; right: -100px;
+}
+
+.hbc2 {
+  width: 300px; height: 300px;
+  background: radial-gradient(circle, rgba(46, 125, 94, 0.08) 0%, transparent 70%);
+  bottom: 80px; left: 8%;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+}
+
+/* Pulsing "Open to Opportunities" badge */
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  background: var(--green-mist);
+  border: 1px solid var(--green-pale);
+  color: var(--green);
+  border-radius: 20px;
+  padding: .3rem 1rem;
+  font-size: .77rem;
+  font-weight: 600;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+}
+
+.hero-badge::before {
+  content: '';
+  width: 7px; height: 7px;
+  background: var(--green-light);
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: .5; transform: scale(1.5); }
+}
+
+h1.hero-name {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.8rem, 5vw, 4.2rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin-bottom: .6rem;
+}
+
+h1.hero-name span {
+  color: var(--green);
+}
+
+.hero-role {
+  font-size: 1.05rem;
+  color: var(--text-mid);
+  font-weight: 400;
+  margin-bottom: 1.3rem;
+}
+
+.hero-role strong {
+  color: var(--green);
+  font-weight: 600;
+}
+
+.hero-desc {
+  color: var(--muted);
+  font-size: .96rem;
+  max-width: 460px;
+  margin-bottom: 2rem;
+  line-height: 1.85;
+}
+
+.hero-actions {
+  display: flex;
+  gap: .9rem;
+  flex-wrap: wrap;
+}
+
+/* Shared button base */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  padding: .75rem 1.8rem;
+  border-radius: 30px;
+  font-family: 'Outfit', sans-serif;
+  font-size: .87rem;
+  font-weight: 600;
+  letter-spacing: .03em;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  transition: transform .2s, box-shadow .2s, background .2s, color .2s;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+/* Solid green button */
+.btn-green {
+  background: var(--green);
+  color: #fff;
+  box-shadow: 0 4px 20px rgba(46, 125, 94, 0.28);
+}
+.btn-green:hover {
+  background: var(--green-light);
+  box-shadow: 0 6px 28px rgba(46, 125, 94, 0.38);
+}
+
+/* Outlined / ghost button */
+.btn-ghost {
+  background: var(--white);
+  color: var(--green);
+  border: 1.5px solid var(--border);
+  box-shadow: var(--shadow);
+}
+.btn-ghost:hover {
+  border-color: var(--green);
+  background: var(--green-mist);
+}
+
+
+/* ============================================================
+   6. PHOTO CARD
+   ============================================================ */
+.hero-photo-wrap {
+  position: relative;
+  z-index: 1;
+}
+
+.photo-card {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.1rem;
+}
+
+.photo-frame {
+  width: 190px; height: 190px;
+  border-radius: 50%;
+  border: 3px solid var(--green-pale);
+  background: var(--green-mist);
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 20px rgba(46, 125, 94, 0.15);
+}
+
+.photo-frame img {
+  width: 108%; height: 99%;
+  object-fit: cover;
+  transition: transform .3s;
+  display: block;
+}
+
+.photo-frame:hover img {
+  transform: scale(1.05);
+}
+
+/* Shown when no photo is loaded */
+.photo-placeholder {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+  color: var(--muted);
+  font-size: .78rem;
+  text-align: center;
+  width: 100%; height: 100%;
+  position: absolute; inset: 0;
+  background: var(--green-mist);
+}
+
+.photo-placeholder svg {
+  width: 46px; height: 46px;
+  opacity: .45;
+}
+
+/* "Change Photo" button label */
+.upload-label {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  font-size: .74rem;
+  font-weight: 600;
+  color: var(--green);
+  cursor: pointer;
+  padding: .32rem .85rem;
+  border: 1px solid var(--green-pale);
+  border-radius: 20px;
+  background: var(--green-mist);
+  transition: background .2s;
+}
+
+.upload-label:hover {
+  background: var(--green-pale);
+}
+
+#photo-input {
+  display: none; /* hidden file input, triggered by the label above */
+}
+
+.photo-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.photo-title {
+  font-size: .82rem;
+  color: var(--muted);
+  text-align: center;
+  line-height: 1.5;
+}
+
+.photo-stats {
+  display: flex;
+  gap: 1.5rem;
+  width: 100%;
+  border-top: 1px solid var(--border);
+  padding-top: 1rem;
+}
+
+.stat            { flex: 1; text-align: center; }
+.stat-num        { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; color: var(--green); }
+.stat-label      { font-size: .7rem; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
+
+
+/* ============================================================
+   7. SECTION SHARED STYLES
+   ============================================================ */
+section {
+  padding: 5rem 5rem;
+}
+
+/* Alternate sections get a slightly different background */
+section:nth-of-type(even) {
+  background: var(--bg2);
+}
+
+/* Small green label above each section title */
+.sec-label {
+  display: inline-flex;
+  align-items: center;
+  gap: .6rem;
+  font-size: .74rem;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: .5rem;
+}
+
+.sec-label::before {
+  content: '';
+  display: block;
+  width: 20px; height: 2px;
+  background: var(--green);
+  border-radius: 2px;
+}
+
+h2.sec-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  margin-bottom: 2.5rem;
+}
+
+h2.sec-title span {
+  color: var(--green);
+}
+
+
+/* ============================================================
+   8. EDUCATION
+   ============================================================ */
+.edu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.2rem;
+}
+
+.edu-card {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: 14px;
+  padding: 1.8rem;
+  box-shadow: var(--shadow);
+  transition: transform .25s, box-shadow .25s, border-color .25s;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Green left accent bar */
+.edu-card::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 4px;
+  background: var(--green);
+  border-radius: 4px 0 0 4px;
+}
+
+.edu-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--green-pale);
+}
+
+/* e.g. "Current" or "Completed" badge */
+.edu-chip {
+  display: inline-block;
+  padding: .2rem .75rem;
+  background: var(--green-mist);
+  color: var(--green);
+  border-radius: 20px;
+  font-size: .72rem;
+  font-weight: 600;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  margin-bottom: .8rem;
+}
+
+.edu-card h3  { font-size: 1rem;  font-weight: 600; color: var(--text);  margin-bottom: .3rem; }
+.edu-card p   { font-size: .87rem; color: var(--muted); margin-bottom: .15rem; }
+.edu-year     { font-size: .8rem;  color: var(--green); font-weight: 600; margin-top: .6rem; }
+
+
+/* ============================================================
+   9. SKILLS
+   ============================================================ */
+.skills-wrap {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+}
+
+.skill-group h3 {
+  font-size: .77rem;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 1rem;
+}
+
+.skill-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .55rem;
+}
+
+/* Individual skill pill */
+.pill {
+  padding: .42rem 1rem;
+  border-radius: 30px;
+  border: 1.5px solid var(--border);
+  background: var(--white);
+  color: var(--text-mid);
+  font-size: .84rem;
+  font-weight: 500;
+  transition: all .2s;
+  cursor: default;
+}
+
+.pill:hover {
+  border-color: var(--green);
+  color: var(--green);
+  background: var(--green-mist);
+  transform: translateY(-1px);
+}
+
+
+/* ============================================================
+   10. CERTIFICATIONS
+   ============================================================ */
+.cert-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1rem;
+}
+
+.cert-card {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  padding: 1.3rem 1.4rem;
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  gap: .4rem;
+  transition: transform .2s, border-color .2s, box-shadow .2s;
+  box-shadow: var(--shadow);
+}
+
+.cert-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--green);
+  box-shadow: var(--shadow-lg);
+}
+
+.cert-from  { font-size: .7rem;  font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--green); }
+.cert-title { font-size: .9rem;  font-weight: 500; color: var(--text); line-height: 1.4; }
+.cert-arrow { font-size: .77rem; color: var(--muted); margin-top: auto; }
+
+
+/* ============================================================
+   11. PROJECTS
+   ============================================================ */
+.proj-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+  gap: 1.4rem;
+}
+
+.proj-card {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: 16px;
+  padding: 1.8rem;
+  display: flex;
+  flex-direction: column;
+  gap: .85rem;
+  box-shadow: var(--shadow);
+  transition: transform .25s, border-color .25s, box-shadow .25s;
+  position: relative;
+  overflow: hidden;
+}
+
+.proj-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--green);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Subtle green glow in top-right corner */
+.proj-card::after {
+  content: '';
+  position: absolute;
+  top: 0; right: 0;
+  width: 80px; height: 80px;
+  background: radial-gradient(circle at top right, var(--green-mist), transparent);
+  pointer-events: none;
+}
+
+.proj-idx {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: var(--green-pale);
+  line-height: 1;
+}
+
+/* Achievement badge (e.g. "🏆 Top 50") */
+.proj-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: .3rem;
+  padding: .2rem .65rem;
+  border-radius: 20px;
+  background: #fff8ee;
+  border: 1px solid #fde5b8;
+  color: #b87a1a;
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .04em;
+  width: fit-content;
+}
+
+.proj-card h3 { font-size: 1.03rem; font-weight: 600; color: var(--text); }
+.proj-card p  { font-size: .87rem; color: var(--muted); line-height: 1.75; flex: 1; }
+
+.proj-tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .45rem;
+}
+
+/* Technology tags on project cards */
+.tech-tag {
+  padding: .18rem .65rem;
+  border-radius: 20px;
+  background: var(--green-mist);
+  color: var(--green);
+  font-size: .72rem;
+  font-weight: 600;
+}
+
+.proj-link {
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+  color: var(--green);
+  text-decoration: none;
+  font-size: .84rem;
+  font-weight: 600;
+  transition: gap .2s;
+}
+
+.proj-link:hover {
+  gap: .6rem;
+}
+
+
+/* ============================================================
+   12. INTERNSHIP TIMELINE
+   ============================================================ */
+.timeline {
+  position: relative;
+  max-width: 680px;
+  padding-left: 2rem;
+}
+
+/* Vertical green line */
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 10px; bottom: 10px;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--green), var(--green-pale));
+  border-radius: 2px;
+}
+
+.tl-item {
+  position: relative;
+  padding: 0 0 2.8rem 2.5rem;
+  /* starts hidden — JS adds .visible to animate in */
+  opacity: 0;
+  transform: translateX(-18px);
+  transition: opacity .5s ease, transform .5s ease;
+}
+
+.tl-item.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.tl-item:last-child {
+  padding-bottom: 0;
+}
+
+/* Circle dot on the timeline line */
+.tl-dot {
+  position: absolute;
+  left: -2.06rem; top: 5px;
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  background: var(--green);
+  border: 3px solid var(--bg2);
+  box-shadow: 0 0 0 3px var(--green-pale);
+}
+
+.tl-date {
+  font-size: .75rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: .5rem;
+}
+
+.tl-card {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  padding: 1.4rem 1.6rem;
+  box-shadow: var(--shadow);
+  transition: border-color .2s;
+}
+
+.tl-card:hover {
+  border-color: var(--green);
+}
+
+.tl-card h3 { font-size: 1rem;  font-weight: 600; color: var(--text); margin-bottom: .35rem; }
+.tl-card p  { font-size: .87rem; color: var(--muted); line-height: 1.7; }
+
+/* Category chip inside timeline card */
+.tl-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: .3rem;
+  margin-top: .75rem;
+  padding: .22rem .7rem;
+  border-radius: 20px;
+  background: var(--green-mist);
+  color: var(--green);
+  font-size: .74rem;
+  font-weight: 600;
+}
+
+
+/* ============================================================
+   13. EXTRACURRICULARS
+   ============================================================ */
+.extra-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(265px, 1fr));
+  gap: 1.2rem;
+}
+
+.extra-card {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: 14px;
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  transition: transform .2s, border-color .2s;
+}
+
+.extra-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--green);
+}
+
+.extra-icon {
+  width: 42px; height: 42px;
+  border-radius: 10px;
+  background: var(--green-mist);
+  border: 1px solid var(--green-pale);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.extra-body h3 { font-size: .93rem; font-weight: 600; color: var(--text);  margin-bottom: .3rem; }
+.extra-body p  { font-size: .82rem; color: var(--muted); line-height: 1.65; }
+
+
+/* ============================================================
+   14. ONLINE PROFILES
+   ============================================================ */
+.profiles-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .85rem;
+}
+
+.profile-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: .65rem;
+  padding: .68rem 1.4rem;
+  border-radius: 30px;
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  color: var(--text-mid);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: .87rem;
+  box-shadow: var(--shadow);
+  transition: border-color .2s, transform .2s, color .2s;
+}
+
+.profile-btn:hover {
+  border-color: var(--green);
+  color: var(--green);
+  transform: translateY(-2px);
+}
+
+
+/* ============================================================
+   15. CONTACT
+   ============================================================ */
+.contact-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: start;
+}
+
+.contact-left p {
+  color: var(--muted);
+  margin-bottom: 1.8rem;
+  font-size: .96rem;
+  line-height: 1.85;
+}
+
+.contact-detail {
+  display: flex;
+  align-items: center;
+  gap: .85rem;
+  margin-bottom: .85rem;
+  font-size: .91rem;
+  color: var(--text-mid);
+}
+
+.c-icon {
+  width: 38px; height: 38px;
+  background: var(--green-mist);
+  border: 1px solid var(--green-pale);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: .85rem;
+}
+
+/* Two-column row inside the form */
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: .85rem;
+}
+
+/* Form field group */
+.fg {
+  display: flex;
+  flex-direction: column;
+  gap: .32rem;
+}
+
+.fg label {
+  font-size: .73rem;
+  font-weight: 600;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.fg input,
+.fg textarea {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  padding: .73rem 1rem;
+  color: var(--text);
+  font-family: 'Outfit', sans-serif;
+  font-size: .9rem;
+  outline: none;
+  transition: border-color .2s, box-shadow .2s;
+  resize: vertical;
+}
+
+.fg input:focus,
+.fg textarea:focus {
+  border-color: var(--green);
+  box-shadow: 0 0 0 3px rgba(46, 125, 94, 0.1);
+}
+
+.fg textarea {
+  min-height: 110px;
+}
+
+/* Submit button */
+.btn-submit {
+  background: var(--green);
+  color: #fff;
+  padding: .78rem 2rem;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+  font-family: 'Outfit', sans-serif;
+  font-size: .88rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  box-shadow: 0 4px 20px rgba(46, 125, 94, 0.28);
+  transition: background .2s, transform .2s, box-shadow .2s;
+  width: fit-content;
+}
+
+.btn-submit:hover {
+  background: var(--green-light);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 28px rgba(46, 125, 94, 0.38);
+}
+
+.btn-submit:disabled {
+  opacity: .7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+
+/* ============================================================
+   16. FOOTER
+   ============================================================ */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 1.8rem 5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: .81rem;
+  color: var(--muted);
+}
+
+.footer-green {
+  color: var(--green);
+}
+
+
+/* ============================================================
+   17. SCROLL REVEAL ANIMATION
+   Elements start invisible and slide up; JS adds .visible
+   ============================================================ */
+.reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity .55s ease, transform .55s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+/* ============================================================
+   18. MOBILE / RESPONSIVE
+   ============================================================ */
+@media (max-width: 900px) {
+
+  nav {
+    padding: 0 1.5rem;
+  }
+
+  /* Hide nav links on mobile (you can add a hamburger menu if needed) */
+  .nav-links {
+    display: none;
+  }
+
+  #intro {
+    grid-template-columns: 1fr;
+    padding: 6rem 1.5rem 3rem;
+  }
+
+  .hero-photo-wrap {
+    display: flex;
+    justify-content: center;
+  }
+
+  section {
+    padding: 4rem 1.5rem;
+  }
+
+  .skills-wrap,
+  .contact-layout {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  footer {
+    flex-direction: column;
+    gap: .5rem;
+    text-align: center;
+    padding: 1.5rem;
+  }
+
+}

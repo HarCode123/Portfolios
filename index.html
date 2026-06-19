@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Harini S — Portfolio</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+
+  <!-- Your Stylesheet -->
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+  <!-- ==============================
+       NAVIGATION
+  ============================== -->
+  <nav>
+    <a class="nav-logo" href="#">Harini S.</a>
+    <ul class="nav-links">
+      <li><a href="#education">Education</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#certifications">Certs</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#internships">Experience</a></li>
+      <li><a href="#extra">Extra</a></li>
+      <li><a href="#contact" class="nav-cta">Contact</a></li>
+    </ul>
+  </nav>
+
+
+  <!-- ==============================
+       HERO / INTRO
+  ============================== -->
+  <section id="intro">
+
+    <!-- Background decorative circles -->
+    <div class="hero-bg">
+      <div class="hbc hbc1"></div>
+      <div class="hbc hbc2"></div>
+    </div>
+
+    <!-- Left: Text content -->
+    <div class="hero-content">
+      <div class="hero-badge">Open to Opportunities</div>
+
+      <h1 class="hero-name">
+        Hello, I'm<br/>
+        <span>Harini S.</span>
+      </h1>
+
+      <p class="hero-role">
+        <strong>CS &amp; Engineering Student</strong> — AI Enthusiast &amp; Builder
+      </p>
+
+      <p class="hero-desc">
+        I'm a Computer Science student at Easwari Engineering College with a passion for
+        Artificial Intelligence, full-stack development, and crafting solutions that create real impact.
+      </p>
+
+      <div class="hero-actions">
+        <a href="https://heartfelt-hotteok-a0c664.netlify.app/HARINI_CV2.pdf"
+           class="btn btn-green" target="_blank">↓ Download CV</a>
+        <a href="#projects" class="btn btn-ghost">View Projects →</a>
+      </div>
+    </div>
+
+    <!-- Right: Photo card -->
+    <div class="hero-photo-wrap">
+      <div class="photo-card">
+
+        <!-- Profile picture frame -->
+        <div class="photo-frame" id="photoFrame">
+          <img id="profileImg"
+            src="https://heartfelt-hotteok-a0c664.netlify.app/Harini_Photo.jpg"
+            alt="Harini S"
+            onerror="this.style.display='none';document.getElementById('photoPlaceholder').style.display='flex'"/>
+
+          <!-- Shown if photo fails to load or before upload -->
+          <div class="photo-placeholder" id="photoPlaceholder">
+            <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="32" cy="24" r="12" stroke="#4aa87e" stroke-width="2"/>
+              <path d="M10 54c0-12 9-18 22-18s22 6 22 18" stroke="#4aa87e" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            <span>Add Photo</span>
+          </div>
+        </div>
+
+        <!-- Upload button — clicking this opens file picker -->
+        <label class="upload-label" for="photo-input">📷 Change Photo</label>
+        <input type="file" id="photo-input" accept="image/*"/>
+
+        <div class="photo-name">Harini S.</div>
+        <div class="photo-title">
+          Computer Science &amp; Engineering<br/>
+          Easwari Engineering College
+        </div>
+
+        <!-- Quick stats — update numbers as you grow! -->
+        <div class="photo-stats">
+          <div class="stat">
+            <div class="stat-num">3</div>
+            <div class="stat-label">Projects</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">10+</div>
+            <div class="stat-label">Certs</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">2</div>
+            <div class="stat-label">Internships</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ==============================
+       EDUCATION
+       To add a new card: copy one .edu-card block and update the text
+  ============================== -->
+  <section id="education">
+    <div class="reveal">
+      <div class="sec-label">Education</div>
+      <h2 class="sec-title">Academic <span>Background</span></h2>
+    </div>
+
+    <div class="edu-grid">
+
+      <div class="edu-card reveal">
+        <span class="edu-chip">Current</span>
+        <h3>Bachelor of Engineering (B.E)</h3>
+        <p>Computer Science and Engineering</p>
+        <p>Easwari Engineering College</p>
+        <div class="edu-year">2024 – 2028</div>
+      </div>
+
+      <div class="edu-card reveal">
+        <span class="edu-chip" style="background:#fff8ee; color:#b87a1a;">Completed</span>
+        <h3>Higher Secondary Certificate</h3>
+        <p>Science Stream — Bio &amp; Maths</p>
+        <p>DAV Adambakkam</p>
+        <div class="edu-year">2015 – 2024</div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ==============================
+       SKILLS
+       To add a skill: add <span class="pill">Skill Name</span> inside the relevant .skill-pills div
+  ============================== -->
+  <section id="skills">
+    <div class="reveal">
+      <div class="sec-label">Skills</div>
+      <h2 class="sec-title">What I <span>Work With</span></h2>
+    </div>
+
+    <div class="skills-wrap reveal">
+
+      <div class="skill-group">
+        <h3>Technical</h3>
+        <div class="skill-pills">
+          <span class="pill">Python</span>
+          <span class="pill">SQL</span>
+          <span class="pill">C</span>
+          <span class="pill">Java (OOP)</span>
+          <span class="pill">DSA</span>
+          <span class="pill">HTML</span>
+          <span class="pill">CSS</span>
+          <span class="pill">JavaScript</span>
+          <span class="pill">MongoDB</span>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <h3>Non-Technical</h3>
+        <div class="skill-pills">
+          <span class="pill">Communication</span>
+          <span class="pill">Analytical Thinking</span>
+          <span class="pill">Problem Solving</span>
+          <span class="pill">Statistics</span>
+          <span class="pill">Research</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ==============================
+       CERTIFICATIONS
+       To add a cert: copy one <a class="cert-card"> block, update href + cert-from + cert-title
+  ============================== -->
+  <section id="certifications">
+    <div class="reveal">
+      <div class="sec-label">Certifications</div>
+      <h2 class="sec-title">Credentials &amp; <span>Courses</span></h2>
+    </div>
+
+    <div class="cert-grid">
+
+      <a href="https://heartfelt-hotteok-a0c664.netlify.app/Python_Essentials_1.pdf" target="_blank" class="cert-card reveal">
+        <span class="cert-from">Cisco Networking Academy</span>
+        <span class="cert-title">Python Essentials 1</span>
+        <span class="cert-arrow">View Certificate →</span>
+      </a>
+
+      <a href="https://heartfelt-hotteok-a0c664.netlify.app/Networking_Basics_Badge.pdf" target="_blank" class="cert-card reveal">
+        <span class="cert-from">Cisco Networking Academy</span>
+        <span class="cert-title">Networking Basics</span>
+        <span class="cert-arrow">View Certificate →</span>
+      </a>
+
+      <a href="#" class="cert-card reveal">
+        <span class="cert-from">Cisco Networking Academy</span>
+        <span class="cert-title">Introduction to Data Science</span>
+        <span class="cert-arrow">View Certificate →</span>
+      </a>
+
+      <a href="#" class="cert-card reveal">
+        <span class="cert-from">Cisco Networking Academy</span>
+        <span class="cert-title">Introduction to Modern AI</span>
+        <span class="cert-arrow">View Certificate →</span>
+      </a>
+
+      <a href="#" class="cert-card reveal">
+        <span class="cert-from">NPTEL</span>
+        <span class="cert-title">Problem Solving Through Programming in C</span>
+        <span class="cert-arrow">View Certificate →</span>
+      </a>
+
+      <a href="#" class="cert-card reveal">
+        <span class="cert-from">NPTEL</span>
+        <span class="cert-title">Privacy &amp; Security in Online Social Media</span>
+        <span class="cert-arrow">View Certificate →</span>
+      </a>
+
+      <a href="#" class="cert-card reveal">
+        <span class="cert-from">Udemy</span>
+        <span class="cert-title">SQL</span>
+        <span class="cert-arrow">View Certificate →</span>
+      </a>
+
+      <a href="#" class="cert-card reveal">
+        <span class="cert-from">Infosys</span>
+        <span class="cert-title">Core Java</span>
+        <span class="cert-arrow">View Certificate →</span>
+      </a>
+
+      <a href="#" class="cert-card reveal">
+        <span class="cert-from">ISRO – IIRS</span>
+        <span class="cert-title">ISRO – IIRS Certification</span>
+        <span class="cert-arrow">View Certificate →</span>
+      </a>
+
+      <a href="#" class="cert-card reveal">
+        <span class="cert-from">MongoDB</span>
+        <span class="cert-title">MongoDB Basics</span>
+        <span class="cert-arrow">View Certificate →</span>
+      </a>
+
+    </div>
+  </section>
+
+
+  <!-- ==============================
+       PROJECTS
+       To add a project: copy one .proj-card block, update proj-idx number, title, desc, tags, link
+  ============================== -->
+  <section id="projects">
+    <div class="reveal">
+      <div class="sec-label">Projects</div>
+      <h2 class="sec-title">Things I've <span>Built</span></h2>
+    </div>
+
+    <div class="proj-grid">
+
+      <div class="proj-card reveal">
+        <div class="proj-idx">01</div>
+        <div class="proj-badge">🏆 Top 50 — SIH 2025</div>
+        <h3>Digital Shiksha Platform</h3>
+        <p>A learning platform for rural students with offline access to PPTs &amp; videos (up to 2GB),
+           enabling continuous education in low-connectivity areas.</p>
+        <div class="proj-tech">
+          <span class="tech-tag">Offline-first</span>
+          <span class="tech-tag">Education Tech</span>
+          <span class="tech-tag">Rural Access</span>
+        </div>
+        <a href="https://digital-shiksha.netlify.app/" target="_blank" class="proj-link">Live Demo →</a>
+      </div>
+
+      <div class="proj-card reveal">
+        <div class="proj-idx">02</div>
+        <h3>Task Manager</h3>
+        <p>Personal task tracker with deadline management and difficulty sorting.
+           Uses Google Sheets as backend, deployed on Render for live database sync.</p>
+        <div class="proj-tech">
+          <span class="tech-tag">HTML/CSS/JS</span>
+          <span class="tech-tag">Google Sheets API</span>
+          <span class="tech-tag">Render</span>
+        </div>
+        <a href="#" class="proj-link">View Project →</a>
+      </div>
+
+      <div class="proj-card reveal">
+        <div class="proj-idx">03</div>
+        <h3>DiaPulse</h3>
+        <p>AI-powered diabetic monitoring app with OCR lab report upload, rule-based AI analysis,
+           alerts for abnormal values, and a doctor's consultation portal.</p>
+        <div class="proj-tech">
+          <span class="tech-tag">Rule-based AI</span>
+          <span class="tech-tag">OCR</span>
+          <span class="tech-tag">Healthcare</span>
+        </div>
+        <a href="https://harcode123.github.io/DiaPulse/" target="_blank" class="proj-link">Live Demo →</a>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ==============================
+       INTERNSHIPS TIMELINE
+       To add an entry: copy one .tl-item block, update date, title, description, chip text
+  ============================== -->
+  <section id="internships">
+    <div class="reveal">
+      <div class="sec-label">Experience</div>
+      <h2 class="sec-title">Internship <span>Timeline</span></h2>
+    </div>
+
+    <div class="timeline">
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-date">2026 · 1 Month</div>
+        <div class="tl-card">
+          <h3>1M1B &amp; IBM — AI for Sustainability</h3>
+          <p>Built AI models promoting sustainability and Earth-focused solutions as part of
+             IBM's global initiative with the 1 Million 1 Billion foundation.</p>
+          <span class="tl-chip">🌱 AI &amp; Sustainability</span>
+        </div>
+      </div>
+
+     
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-date">2026 · 2 Months</div>
+        <div class="tl-card">
+          <h3>Noctaalytiq Insights</h3>
+          <p>Data Research Intern — responsible for data cleaning, analysis, and generating
+             accurate reports to support data-driven business decisions.</p>
+          <span class="tl-chip">📊 Data Research</span>
+        </div>
+      </div>
+
+       <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-date">2026 · 2 Months</div>
+        <div class="tl-card">
+          <h3>1M1B - Green Internship</h3>
+          <p>Designed interactive Dashboards using Power BI upon investigating the carbon emissions 
+            produced in schools promoting sustainability solutions and learning insights </p>
+          <span class="tl-chip">🌱 AI &amp; Sustainability</span>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-date">2026 · 2 Months</div>
+        <div class="tl-card">
+          <h3>Mastek</h3>
+          <p>Data Research Intern — responsible for data cleaning, analysis, and generating
+             accurate reports to support data-driven business decisions.</p>
+          <span class="tl-chip"></span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ==============================
+       EXTRACURRICULARS
+       To add an activity: copy one .extra-card block, change the emoji + heading + description
+  ============================== -->
+  <section id="extra">
+    <div class="reveal">
+      <div class="sec-label">Beyond Academics</div>
+      <h2 class="sec-title">Extra<span>curriculars</span></h2>
+    </div>
+
+    <div class="extra-grid">
+
+      <div class="extra-card reveal">
+        <div class="extra-icon">🏅</div>
+        <div class="extra-body">
+          <h3>Smart India Hackathon 2025</h3>
+          <p>Cleared internals and ranked among Top 50 teams nationally with the Digital Shiksha rural education platform.</p>
+        </div>
+      </div>
+
+      <div class="extra-card reveal">
+        <div class="extra-icon">💻</div>
+        <div class="extra-body">
+          <h3>Coding Competitions</h3>
+          <p>Actively participates in college-level coding contests and online problem-solving challenges to sharpen DSA skills.</p>
+        </div>
+      </div>
+
+      <div class="extra-card reveal">
+        <div class="extra-icon">🤝</div>
+        <div class="extra-body">
+          <h3>Volunteering &amp; Events</h3>
+          <p>Active volunteer at technical fests and department events, contributing to coordination, management, and logistics.</p>
+        </div>
+      </div>
+
+      <div class="extra-card reveal">
+        <div class="extra-icon">📚</div>
+        <div class="extra-body">
+          <h3>Self-Learning &amp; MOOCs</h3>
+          <p>Continuously upskilling via Cisco NetAcad, NPTEL, Udemy, and MongoDB university — 10+ certifications earned.</p>
+        </div>
+      </div>
+
+      <div class="extra-card reveal">
+        <div class="extra-icon">🌍</div>
+        <div class="extra-body">
+          <h3>AI for Social Good</h3>
+          <p>Passionate about applying AI to meaningful causes — from diabetic healthcare (DiaPulse) to rural education (Digital Shiksha).</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ==============================
+       ONLINE PROFILES
+       Update each href to your actual profile URL
+  ============================== -->
+  <section id="profiles">
+    <div class="reveal">
+      <div class="sec-label">Online</div>
+      <h2 class="sec-title">Find Me <span>Here</span></h2>
+    </div>
+
+    <div class="profiles-row reveal">
+      <a href="mailto:harinisrinivasan2716@gmail.com" class="profile-btn"><span>✉️</span> Gmail</a>
+      <a href="https://github.com/harcode123" target="_blank" class="profile-btn"><span>🐙</span> GitHub</a>
+      <a href="https://www.linkedin.com/in/harini-s-2a4b2630a/" target="_blank" class="profile-btn"><span>💼</span> LinkedIn</a>
+      <a href="https://heartfelt-hotteok-a0c664.netlify.app/HARINI_CV2.pdf" target="_blank" class="profile-btn"><span>📄</span> Resume</a>
+    </div>
+  </section>
+
+
+  <!-- ==============================
+       CONTACT
+  ============================== -->
+  <section id="contact">
+    <div class="reveal">
+      <div class="sec-label">Contact</div>
+      <h2 class="sec-title">Let's <span>Connect</span></h2>
+    </div>
+
+    <div class="contact-layout">
+
+      <div class="contact-left reveal">
+        <p>I'm always open to exciting opportunities, collaborations, or just a great
+           chat about tech and AI. Feel free to reach out anytime!</p>
+        <div class="contact-detail"><div class="c-icon">✉️</div> harinisrinivasan2716@gmail.com</div>
+        <div class="contact-detail"><div class="c-icon">📞</div> +91 8946068343</div>
+        <div class="contact-detail"><div class="c-icon">📍</div> Chennai, Tamil Nadu, India</div>
+      </div>
+
+      <form class="contact-form reveal" onsubmit="handleForm(event)">
+        <div class="form-row">
+          <div class="fg">
+            <label>Your Name</label>
+            <input type="text" placeholder="e.g. Ravi Kumar"/>
+          </div>
+          <div class="fg">
+            <label>Email</label>
+            <input type="email" placeholder="you@email.com"/>
+          </div>
+        </div>
+        <div class="fg">
+          <label>Subject</label>
+          <input type="text" placeholder="What's this about?"/>
+        </div>
+        <div class="fg">
+          <label>Message</label>
+          <textarea placeholder="Hi Harini, I'd love to connect about..."></textarea>
+        </div>
+        <button type="submit" class="btn-submit" id="submitBtn">Send Message ✉️</button>
+      </form>
+
+    </div>
+  </section>
+
+
+  <!-- ==============================
+       FOOTER
+  ============================== -->
+  <footer>
+    <span>© 2025 <span class="footer-green">Harini S.</span> All rights reserved.</span>
+    <span>CS Student · Easwari Engineering College · Chennai</span>
+  </footer>
+
+  <!-- JavaScript -->
+  <script src="script.js"></script>
+
+</body>
+</html>
