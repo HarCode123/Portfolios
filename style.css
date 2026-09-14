@@ -1,4 +1,4 @@
-* ============================================================
+/* ============================================================
    HARINI S — PORTFOLIO STYLESHEET
    ============================================================
    TABLE OF CONTENTS
@@ -56,7 +56,6 @@
 html {
   scroll-behavior: smooth;
 }
-
 
 body {
   background: var(--bg);
@@ -850,7 +849,6 @@ h2.sec-title span {
   border-color: var(--green);
   color: var(--green);
   transform: translateY(-2px);
-
 }
 
 
@@ -903,8 +901,6 @@ h2.sec-title span {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: .85rem;
-
-
 }
 
 /* Form field group */
@@ -920,21 +916,6 @@ h2.sec-title span {
   letter-spacing: .07em;
   text-transform: uppercase;
   color: var(--muted);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
 
 .fg input,
@@ -955,20 +936,10 @@ h2.sec-title span {
 .fg textarea:focus {
   border-color: var(--green);
   box-shadow: 0 0 0 3px rgba(46, 125, 94, 0.1);
-
-
-
-
-
-
-
-
-
 }
 
 .fg textarea {
   min-height: 110px;
-
 }
 
 /* Submit button */
@@ -994,8 +965,6 @@ h2.sec-title span {
   background: var(--green-light);
   transform: translateY(-2px);
   box-shadow: 0 6px 28px rgba(46, 125, 94, 0.38);
-
-
 }
 
 .btn-submit:disabled {
@@ -1020,45 +989,7 @@ footer {
 
 .footer-green {
   color: var(--green);
-
-
-
-
-
-
-
-
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 /* ============================================================
