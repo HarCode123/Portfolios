@@ -64,3 +64,64 @@ window.addEventListener('scroll', () => {
     );
   });
 });
+
+
+/* ============================================================
+   3. PHOTO UPLOAD
+   When the user picks a file via the hidden <input type="file">,
+   we read it as a data URL and set it as the <img> src.
+   The placeholder (SVG icon) is hidden once a photo is loaded.
+   ============================================================ */
+
+const photoInput   = document.getElementById('photo-input');
+const profileImg   = document.getElementById('profileImg');
+const photoPlaceholder = document.getElementById('photoPlaceholder');
+
+photoInput.addEventListener('change', function (event) {
+  const file = event.target.files[0];
+  if (!file) return; // no file selected, do nothing
+
+  const reader = new FileReader();
+
+  reader.onload = function (e) {
+    // Set the image source to the selected file
+    profileImg.src = e.target.result;
+    profileImg.style.display = 'block';
+
+    // Hide the placeholder SVG
+    photoPlaceholder.style.display = 'none';
+  };
+
+  reader.readAsDataURL(file);
+});
+
+
+/* ============================================================
+   4. CONTACT FORM
+   On submit we prevent the default browser behaviour (page
+   reload), show a success message on the button, then reset
+   everything after 3 seconds.
+
+   NOTE: This is a front-end-only demo. To actually send emails,
+   connect this form to a service like Formspree, EmailJS,
+   or your own backend.
+   ============================================================ */
+
+function handleForm(event) {
+  event.preventDefault(); // stop the page from reloading
+
+  const submitBtn = document.getElementById('submitBtn');
+
+  // Show success state
+  submitBtn.textContent = '✓ Message Sent!';
+  submitBtn.style.background = '#1e6b4a'; // slightly darker green
+  submitBtn.disabled = true;
+
+  // Reset after 3 seconds
+  setTimeout(() => {
+    submitBtn.textContent = 'Send Message ✉️';
+    submitBtn.style.background = '';
+    submitBtn.disabled = false;
+    event.target.reset(); // clear all form fields
+  }, 3000);
+}
