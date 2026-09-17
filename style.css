@@ -41,6 +41,22 @@
   --border:       #c8dfd3;   /* card borders */
   --shadow:       0 2px 20px rgba(46, 125, 94, 0.08);
   --shadow-lg:    0 8px 40px rgba(46, 125, 94, 0.14);
+
+  /* Golden/yellow secondary accent — used only for the Project Journey
+     roadmap's milestone markers, so it stays a rare, purposeful highlight
+     rather than competing with the sage green primary accent. */
+  --gold:         #d9a441;
+  --gold-light:   #f0c169;
+  --gold-pale:    #f6e3bb;
+  --gold-shadow:  0 6px 18px rgba(217, 164, 65, 0.35);
+
+  /* Luxurious "settle" easing — slow start, gentle overshoot-free finish.
+     Used everywhere motion should feel calm rather than mechanical. */
+  --ease-lux:     cubic-bezier(.22, 1, .36, 1);
+
+  /* Cursor-follow glow inside the hero — kept very low opacity so it reads
+     as ambient light, not a spotlight */
+  --glow-color:   rgba(74, 168, 126, 0.16);
 }
 
 
@@ -90,6 +106,16 @@ nav {
   justify-content: space-between;
   padding: 0 5rem;
   height: 64px;
+  /* Smoothly interpolate blur/shadow as JS toggles .nav-scrolled */
+  transition: background .4s var(--ease-lux), backdrop-filter .4s var(--ease-lux), box-shadow .4s var(--ease-lux);
+}
+
+/* Added by JS once the page has scrolled past a small threshold —
+   deepens the blur and gives the bar a faint lift off the page */
+nav.nav-scrolled {
+  background: rgba(245, 249, 246, 0.82);
+  backdrop-filter: blur(28px) saturate(160%);
+  box-shadow: 0 8px 30px rgba(46, 125, 94, 0.08);
 }
 
 .nav-logo {
@@ -116,7 +142,9 @@ nav {
   letter-spacing: .05em;
   text-transform: uppercase;
   border-radius: 20px;
-  transition: color .2s, background .2s;
+  /* Longer, eased transition so the active pill feels like it morphs
+     into place rather than snapping on */
+  transition: color .35s var(--ease-lux), background .35s var(--ease-lux);
 }
 
 .nav-links a:hover,
@@ -175,6 +203,40 @@ nav {
   width: 300px; height: 300px;
   background: radial-gradient(circle, rgba(46, 125, 94, 0.08) 0%, transparent 70%);
   bottom: 80px; left: 8%;
+}
+
+/* Large soft sage glow sitting behind the hero content — appended into
+   #intro by script.js so index.html doesn't need a new element.
+   Heavily blurred + low opacity so it reads as ambient light, not a shape. */
+.hero-ambient-glow {
+  position: absolute;
+  width: 720px; height: 720px;
+  left: 50%; top: 45%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgba(74, 168, 126, 0.14) 0%, rgba(74, 168, 126, 0.05) 45%, transparent 72%);
+  filter: blur(40px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Cursor-follow light — only exists inside #intro. JS updates --mx/--my
+   (0–100, as % of the hero's width/height) on every mousemove; the glow
+   itself never repaints, only its background-position, so it stays smooth. */
+.hero-cursor-glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0;
+  background: radial-gradient(circle 420px at var(--mx, 50%) var(--my, 50%), var(--glow-color), transparent 70%);
+  /* Position tracks the cursor instantly; only fade-in/out is eased */
+  transition: opacity .6s var(--ease-lux);
+}
+
+/* JS adds this once the pointer has actually entered the hero, so the
+   glow doesn't flash in at a stale (0,0) position on page load */
+.hero-cursor-glow.active {
+  opacity: 1;
 }
 
 .hero-content {
@@ -265,11 +327,30 @@ h1.hero-name span {
   text-decoration: none;
   cursor: pointer;
   border: none;
-  transition: transform .2s, box-shadow .2s, background .2s, color .2s;
+  transition: transform .4s var(--ease-lux), box-shadow .4s var(--ease-lux), background .3s ease, color .3s ease;
+  position: relative;
+  overflow: hidden; /* clips the light-sweep pseudo-element below */
 }
 
 .btn:hover {
   transform: translateY(-2px);
+}
+
+/* Soft glossy sweep — a diagonal highlight that glides across the
+   button on hover. Pure CSS transform, so it stays smooth at 60fps. */
+.btn::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -60%;
+  width: 40%; height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+  transform: skewX(-20deg);
+  transition: left .75s var(--ease-lux);
+  pointer-events: none;
+}
+
+.btn:hover::before {
+  left: 120%;
 }
 
 /* Solid green button */
@@ -314,6 +395,13 @@ h1.hero-name span {
   flex-direction: column;
   align-items: center;
   gap: 1.1rem;
+  /* Card itself stays static — only a gentle elevation on hover */
+  transition: transform .5s var(--ease-lux), box-shadow .5s var(--ease-lux);
+}
+
+.photo-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 48px rgba(46, 125, 94, 0.18);
 }
 
 .photo-frame {
@@ -416,11 +504,18 @@ h1.hero-name span {
    ============================================================ */
 section {
   padding: 5rem 5rem;
+  position: relative;
 }
 
-/* Alternate sections get a slightly different background */
+/* Alternate sections get a slightly different background, but the first
+   120px fades in from the previous section's tone instead of cutting
+   sharply — this is what makes scrolling feel continuous. */
 section:nth-of-type(even) {
-  background: var(--bg2);
+  background: linear-gradient(to bottom, var(--bg) 0, var(--bg2) 140px, var(--bg2) 100%);
+}
+
+section:nth-of-type(odd):not(#intro) {
+  background: linear-gradient(to bottom, var(--bg2) 0, var(--bg) 140px, var(--bg) 100%);
 }
 
 /* Small green label above each section title */
@@ -473,7 +568,7 @@ h2.sec-title span {
   border-radius: 14px;
   padding: 1.8rem;
   box-shadow: var(--shadow);
-  transition: transform .25s, box-shadow .25s, border-color .25s;
+  transition: transform .5s var(--ease-lux), box-shadow .5s var(--ease-lux), border-color .5s var(--ease-lux);
   position: relative;
   overflow: hidden;
 }
@@ -491,7 +586,7 @@ h2.sec-title span {
 .edu-card:hover {
   transform: translateY(-4px);
   box-shadow: var(--shadow-lg);
-  border-color: var(--green-pale);
+  border-color: var(--green-light);
 }
 
 /* e.g. "Current" or "Completed" badge */
@@ -546,7 +641,7 @@ h2.sec-title span {
   color: var(--text-mid);
   font-size: .84rem;
   font-weight: 500;
-  transition: all .2s;
+  transition: border-color .35s var(--ease-lux), color .35s var(--ease-lux), background .35s var(--ease-lux), transform .35s var(--ease-lux), box-shadow .35s var(--ease-lux);
   cursor: default;
 }
 
@@ -555,6 +650,7 @@ h2.sec-title span {
   color: var(--green);
   background: var(--green-mist);
   transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(46, 125, 94, 0.16);
 }
 
 
@@ -577,7 +673,7 @@ h2.sec-title span {
   display: flex;
   flex-direction: column;
   gap: .4rem;
-  transition: transform .2s, border-color .2s, box-shadow .2s;
+  transition: transform .5s var(--ease-lux), border-color .5s var(--ease-lux), box-shadow .5s var(--ease-lux);
   box-shadow: var(--shadow);
 }
 
@@ -593,78 +689,166 @@ h2.sec-title span {
 
 
 /* ============================================================
-   11. PROJECTS
+   11. PROJECT JOURNEY ROADMAP
+   A winding, S-shaped road down the section: an SVG path drawn
+   through each milestone dot's real position (computed in JS,
+   see script.js §8), so the curve always passes exactly through
+   every marker no matter the card heights or viewport width.
    ============================================================ */
-.proj-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
-  gap: 1.4rem;
+.rm-intro {
+  max-width: 560px;
+  font-size: .96rem;
+  color: var(--text-mid);
+  line-height: 1.7;
+  margin-top: -.75rem;
+  margin-bottom: 1rem;
 }
 
-.proj-card {
-  background: var(--white);
-  border: 1.5px solid var(--border);
-  border-radius: 16px;
-  padding: 1.8rem;
+.roadmap {
+  position: relative;
+}
+
+.roadmap-track {
+  position: relative;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 1.5rem 0;
   display: flex;
   flex-direction: column;
-  gap: .85rem;
-  box-shadow: var(--shadow);
-  transition: transform .25s, border-color .25s, box-shadow .25s;
-  position: relative;
-  overflow: hidden;
+  gap: 4.5rem;
 }
 
-.proj-card:hover {
+/* SVG road — sits behind the milestones. Two paths share the same
+   JS-computed `d`: a pale static track (the full route, always
+   faintly visible) and a sage-gradient path revealed via
+   stroke-dashoffset as the user scrolls, so the road feels drawn
+   rather than just present. */
+.roadmap-road {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0;
+  transition: opacity .6s var(--ease-lux);
+}
+
+.roadmap-road.rm-built {
+  opacity: 1;
+}
+
+.rm-road-track {
+  fill: none;
+  stroke: var(--green-pale);
+  stroke-width: 5;
+  stroke-linecap: round;
+}
+
+.rm-road-draw {
+  fill: none;
+  stroke: url(#rm-road-gradient);
+  stroke-width: 5;
+  stroke-linecap: round;
+  filter: drop-shadow(0 2px 6px rgba(46, 125, 94, 0.18));
+  transition: stroke-dashoffset .25s linear;
+}
+
+.rm-item {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 1.6rem;
+}
+
+/* Alternating sides — dot pinned to one edge of the track, card
+   filling the rest. Because the dot's x-position flips between
+   "left" and "right" items, the SVG path computed through those
+   real dot centers naturally bends into an S-curve. */
+.rm-item.rm-left  { flex-direction: row; }
+.rm-item.rm-right { flex-direction: row-reverse; }
+
+.rm-dot {
+  flex: 0 0 60px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: .95rem;
+  color: var(--white);
+  background: linear-gradient(155deg, var(--gold-pale), var(--green-pale));
+  border: 3px solid var(--bg2);
+  box-shadow: 0 0 0 3px var(--green-pale);
+  opacity: .55;
+  transform: scale(.82);
+  transition: opacity .6s var(--ease-lux), transform .6s var(--ease-lux), background .6s var(--ease-lux), box-shadow .6s var(--ease-lux);
+}
+
+/* JS adds this as each milestone scrolls into view — activating
+   the dots sequentially, top to bottom, as the road is travelled */
+.rm-dot.rm-active {
+  opacity: 1;
+  transform: scale(1);
+  color: var(--text);
+  background: linear-gradient(155deg, var(--gold-light), var(--gold));
+  box-shadow: 0 0 0 4px var(--gold-pale), var(--gold-shadow);
+}
+
+.rm-card {
+  flex: 1 1 420px;
+  max-width: 460px;
+  background: var(--white);
+  border: 1.5px solid var(--green-pale);
+  border-radius: 16px;
+  padding: 1.7rem 1.8rem;
+  display: flex;
+  flex-direction: column;
+  gap: .7rem;
+  box-shadow: var(--shadow);
+  transition: transform .5s var(--ease-lux), border-color .5s var(--ease-lux), box-shadow .5s var(--ease-lux);
+}
+
+.rm-card:hover {
   transform: translateY(-5px);
   border-color: var(--green);
   box-shadow: var(--shadow-lg);
 }
 
-/* Subtle green glow in top-right corner */
-.proj-card::after {
-  content: '';
-  position: absolute;
-  top: 0; right: 0;
-  width: 80px; height: 80px;
-  background: radial-gradient(circle at top right, var(--green-mist), transparent);
-  pointer-events: none;
+.rm-right .rm-card {
+  margin-left: auto;
 }
 
-.proj-idx {
-  font-family: 'Playfair Display', serif;
-  font-size: 2.4rem;
-  font-weight: 700;
-  color: var(--green-pale);
-  line-height: 1;
-}
-
-/* Achievement badge (e.g. "🏆 Top 50") */
-.proj-badge {
+/* Badge (e.g. "Group Project · SIH 2025") */
+.rm-badge {
   display: inline-flex;
   align-items: center;
-  gap: .3rem;
   padding: .2rem .65rem;
   border-radius: 20px;
-  background: #fff8ee;
-  border: 1px solid #fde5b8;
-  color: #b87a1a;
+  background: var(--green-mist);
+  border: 1px solid var(--green-pale);
+  color: var(--green);
   font-size: .72rem;
   font-weight: 700;
   letter-spacing: .04em;
   width: fit-content;
 }
 
-.proj-card h3 { font-size: 1.03rem; font-weight: 600; color: var(--text); }
-.proj-card p  { font-size: .87rem; color: var(--muted); line-height: 1.75; flex: 1; }
+.rm-card h3 { font-family: 'Playfair Display', serif; font-size: 1.08rem; font-weight: 600; color: var(--text); }
+.rm-card p  { font-size: .87rem; color: var(--muted); line-height: 1.75; }
 
-.proj-tech {
+.rm-tech {
   display: flex;
   flex-wrap: wrap;
   gap: .45rem;
 }
 
-/* Technology tags on project cards */
+/* Technology tags on roadmap cards */
 .tech-tag {
   padding: .18rem .65rem;
   border-radius: 20px;
@@ -674,7 +858,7 @@ h2.sec-title span {
   font-weight: 600;
 }
 
-.proj-link {
+.rm-link {
   display: inline-flex;
   align-items: center;
   gap: .35rem;
@@ -683,10 +867,36 @@ h2.sec-title span {
   font-size: .84rem;
   font-weight: 600;
   transition: gap .2s;
+  margin-top: .1rem;
 }
 
-.proj-link:hover {
+.rm-link:hover {
   gap: .6rem;
+}
+
+/* Subtle "Currently Building" indicator — a soft, slow pulse only,
+   no glassmorphism or neon */
+.rm-pulse {
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+  font-size: .72rem;
+  font-weight: 600;
+  letter-spacing: .03em;
+  color: #b8811f;
+}
+
+.rm-pulse-bead {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--gold);
+  animation: rm-pulse-beat 1.8s ease-in-out infinite;
+}
+
+@keyframes rm-pulse-beat {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(217, 164, 65, 0.45); }
+  50%      { box-shadow: 0 0 0 6px rgba(217, 164, 65, 0); }
 }
 
 
@@ -699,23 +909,39 @@ h2.sec-title span {
   padding-left: 2rem;
 }
 
-/* Vertical green line */
+/* Static pale track behind the growing line, so the full path is always
+   faintly visible even before it's been "drawn" by scrolling */
 .timeline::before {
   content: '';
   position: absolute;
   left: 0; top: 10px; bottom: 10px;
   width: 2px;
-  background: linear-gradient(to bottom, var(--green), var(--green-pale));
+  background: var(--green-pale);
   border-radius: 2px;
+}
+
+/* The actual growing line. JS sets --tl-progress (0–1) as the timeline
+   scrolls through view; height animates off that instead of a JS-driven
+   loop, so it stays smooth even on slower devices. */
+.timeline::after {
+  content: '';
+  position: absolute;
+  left: 0; top: 10px;
+  width: 2px;
+  height: calc(var(--tl-progress, 0) * 100%);
+  max-height: calc(100% - 20px);
+  background: linear-gradient(to bottom, var(--green), var(--green-light));
+  border-radius: 2px;
+  transition: height .3s linear; /* short — scroll already supplies the motion */
 }
 
 .tl-item {
   position: relative;
   padding: 0 0 2.8rem 2.5rem;
-  /* starts hidden — JS adds .visible to animate in */
+  /* starts hidden — JS adds .visible to animate in, one item after another */
   opacity: 0;
   transform: translateX(-18px);
-  transition: opacity .5s ease, transform .5s ease;
+  transition: opacity .7s var(--ease-lux), transform .7s var(--ease-lux);
 }
 
 .tl-item.visible {
@@ -738,6 +964,18 @@ h2.sec-title span {
   box-shadow: 0 0 0 3px var(--green-pale);
 }
 
+/* JS adds this the moment an item is revealed — plays once, then just
+   sits still (no looping pulse, so it never feels restless) */
+.tl-dot.pulse-once {
+  animation: dot-pulse-once 1.1s var(--ease-lux);
+}
+
+@keyframes dot-pulse-once {
+  0%   { box-shadow: 0 0 0 3px var(--green-pale); }
+  45%  { box-shadow: 0 0 0 9px rgba(74, 168, 126, 0.18); }
+  100% { box-shadow: 0 0 0 3px var(--green-pale); }
+}
+
 .tl-date {
   font-size: .75rem;
   font-weight: 700;
@@ -753,7 +991,7 @@ h2.sec-title span {
   border-radius: 12px;
   padding: 1.4rem 1.6rem;
   box-shadow: var(--shadow);
-  transition: border-color .2s;
+  transition: border-color .4s var(--ease-lux), box-shadow .4s var(--ease-lux);
 }
 
 .tl-card:hover {
@@ -796,7 +1034,7 @@ h2.sec-title span {
   display: flex;
   gap: 1rem;
   align-items: flex-start;
-  transition: transform .2s, border-color .2s;
+  transition: transform .5s var(--ease-lux), border-color .5s var(--ease-lux);
 }
 
 .extra-card:hover {
@@ -842,7 +1080,7 @@ h2.sec-title span {
   font-weight: 500;
   font-size: .87rem;
   box-shadow: var(--shadow);
-  transition: border-color .2s, transform .2s, color .2s;
+  transition: border-color .4s var(--ease-lux), transform .4s var(--ease-lux), color .4s var(--ease-lux);
 }
 
 .profile-btn:hover {
@@ -957,14 +1195,33 @@ h2.sec-title span {
   align-items: center;
   gap: .5rem;
   box-shadow: 0 4px 20px rgba(46, 125, 94, 0.28);
-  transition: background .2s, transform .2s, box-shadow .2s;
+  transition: background .3s ease, transform .4s var(--ease-lux), box-shadow .4s var(--ease-lux);
   width: fit-content;
+  position: relative;
+  overflow: hidden;
 }
 
 .btn-submit:hover {
   background: var(--green-light);
   transform: translateY(-2px);
   box-shadow: 0 6px 28px rgba(46, 125, 94, 0.38);
+}
+
+/* Same glossy sweep as .btn, duplicated here since this button doesn't
+   share the .btn class in the markup */
+.btn-submit::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -60%;
+  width: 40%; height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+  transform: skewX(-20deg);
+  transition: left .75s var(--ease-lux);
+  pointer-events: none;
+}
+
+.btn-submit:hover::before {
+  left: 120%;
 }
 
 .btn-submit:disabled {
@@ -998,8 +1255,8 @@ footer {
    ============================================================ */
 .reveal {
   opacity: 0;
-  transform: translateY(22px);
-  transition: opacity .55s ease, transform .55s ease;
+  transform: translateY(18px); /* within the 12–20px brief */
+  transition: opacity .8s var(--ease-lux), transform .8s var(--ease-lux);
 }
 
 .reveal.visible {
@@ -1044,6 +1301,34 @@ footer {
 
   .form-row {
     grid-template-columns: 1fr;
+  }
+
+  /* Roadmap collapses to a single left-aligned column — the road
+     naturally straightens too, since it's drawn through these same
+     dot positions, all now sitting at the same x. */
+  .roadmap-track {
+    gap: 3rem;
+  }
+
+  .rm-item.rm-left,
+  .rm-item.rm-right {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 1.1rem;
+  }
+
+  .rm-dot {
+    flex-basis: 46px;
+    width: 46px;
+    height: 46px;
+    font-size: .78rem;
+  }
+
+  .rm-card,
+  .rm-right .rm-card {
+    max-width: none;
+    margin-left: 0;
+    padding: 1.4rem 1.5rem;
   }
 
   footer {
