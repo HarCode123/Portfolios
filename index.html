@@ -269,57 +269,124 @@
 
 
   <!-- ==============================
-       PROJECTS
-       To add a project: copy one .proj-card block, update proj-idx number, title, desc, tags, link
+       PROJECT JOURNEY ROADMAP
+       A curved, S-shaped road connecting milestone cards instead of
+       a flat grid. To add a milestone: copy one .rm-item block
+       (alternate rm-left/rm-right), update the dot number, badge,
+       title, description, tags and link. The road itself is drawn
+       automatically in JS (script.js §8) through each .rm-dot's
+       real position — no coordinates to maintain by hand.
   ============================== -->
   <section id="projects">
     <div class="reveal">
       <div class="sec-label">Projects</div>
-      <h2 class="sec-title">Things I've <span>Built</span></h2>
+      <h2 class="sec-title">Project <span>Journey</span></h2>
+      <p class="rm-intro">From my first collaborative innovation to the AI systems I'm building today.</p>
     </div>
 
-    <div class="proj-grid">
+    <div class="roadmap">
 
-      <div class="proj-card reveal">
-        <div class="proj-idx">01</div>
-        <div class="proj-badge">🏆 Top 50 — SIH 2025</div>
-        <h3>Digital Shiksha Platform</h3>
-        <p>A learning platform for rural students with offline access to PPTs &amp; videos (up to 2GB),
-           enabling continuous education in low-connectivity areas.</p>
-        <div class="proj-tech">
-          <span class="tech-tag">Offline-first</span>
-          <span class="tech-tag">Education Tech</span>
-          <span class="tech-tag">Rural Access</span>
+      <!-- Decorative road — a static pale track plus a sage-gradient
+           path that "draws" itself in as you scroll. `d` on both
+           paths is set entirely by JS once milestone positions are known. -->
+      <svg class="roadmap-road" id="roadmapRoad" preserveAspectRatio="none">
+        <defs>
+          <linearGradient id="rm-road-gradient" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#2e7d5e"/>
+            <stop offset="100%" stop-color="#4aa87e"/>
+          </linearGradient>
+        </defs>
+        <path class="rm-road-track" id="roadmapTrackPath"/>
+        <path class="rm-road-draw" id="roadmapDrawPath"/>
+      </svg>
+
+      <div class="roadmap-track" id="roadmapTrack">
+
+        <div class="rm-item rm-left">
+          <div class="rm-dot">01</div>
+          <div class="rm-card reveal">
+            <span class="rm-badge">Group Project · SIH 2025</span>
+            <h3>Digital Shiksha Platform</h3>
+            <p>Offline-first rural education platform developed for Smart India Hackathon, enabling
+               learning through downloadable content in low-connectivity regions.</p>
+            <div class="rm-tech">
+              <span class="tech-tag">React</span>
+              <span class="tech-tag">Offline-first</span>
+              <span class="tech-tag">Education Tech</span>
+            </div>
+            <a href="https://digital-shiksha.netlify.app/" target="_blank" class="rm-link">Live Demo →</a>
+          </div>
         </div>
-        <a href="https://digital-shiksha.netlify.app/" target="_blank" class="proj-link">Live Demo →</a>
-      </div>
 
-      <div class="proj-card reveal">
-        <div class="proj-idx">02</div>
-        <h3>Task Manager</h3>
-        <p>Personal task tracker with deadline management and difficulty sorting.
-           Uses Google Sheets as backend, deployed on Render for live database sync.</p>
-        <div class="proj-tech">
-          <span class="tech-tag">HTML/CSS/JS</span>
-          <span class="tech-tag">Google Sheets API</span>
-          <span class="tech-tag">Render</span>
+        <div class="rm-item rm-right">
+          <div class="rm-dot">02</div>
+          <div class="rm-card reveal">
+            <span class="rm-badge">First Personal Project</span>
+            <h3>Task Manager</h3>
+            <p>A productivity web application with task prioritization and deadline tracking,
+               using Google Sheets as the backend.</p>
+            <div class="rm-tech">
+              <span class="tech-tag">HTML</span>
+              <span class="tech-tag">CSS</span>
+              <span class="tech-tag">JavaScript</span>
+              <span class="tech-tag">Google Sheets API</span>
+            </div>
+            <a href="#" class="rm-link">View Project →</a>
+          </div>
         </div>
-        <a href="#" class="proj-link">View Project →</a>
-      </div>
 
-      <div class="proj-card reveal">
-        <div class="proj-idx">03</div>
-        <h3>DiaPulse</h3>
-        <p>AI-powered diabetic monitoring app with OCR lab report upload, rule-based AI analysis,
-           alerts for abnormal values, and a doctor's consultation portal.</p>
-        <div class="proj-tech">
-          <span class="tech-tag">Rule-based AI</span>
-          <span class="tech-tag">OCR</span>
-          <span class="tech-tag">Healthcare</span>
+        <div class="rm-item rm-left">
+          <div class="rm-dot">03</div>
+          <div class="rm-card reveal">
+            <span class="rm-badge">Healthcare AI</span>
+            <h3>DiaPulse</h3>
+            <p>AI-powered diabetic monitoring platform featuring OCR-based lab report analysis,
+               rule-based health insights, alerts, and a doctor consultation portal.</p>
+            <div class="rm-tech">
+              <span class="tech-tag">OCR</span>
+              <span class="tech-tag">Rule-based AI</span>
+              <span class="tech-tag">Healthcare</span>
+            </div>
+            <a href="https://harcode123.github.io/DiaPulse/" target="_blank" class="rm-link">Live Demo →</a>
+          </div>
         </div>
-        <a href="https://harcode123.github.io/DiaPulse/" target="_blank" class="proj-link">Live Demo →</a>
-      </div>
 
+        <div class="rm-item rm-right">
+          <div class="rm-dot">04</div>
+          <div class="rm-card reveal">
+            <span class="rm-badge">Currently Building</span>
+            <h3>KATEB AI</h3>
+            <p>AI-powered Patient Monitoring System with doctor and patient portals, live consultation
+               transcription, EMR generation, prescription workflow, and PDF export.</p>
+            <div class="rm-tech">
+              <span class="tech-tag">React</span>
+              <span class="tech-tag">TypeScript</span>
+              <span class="tech-tag">Gemini Live</span>
+              <span class="tech-tag">Node.js</span>
+              <span class="tech-tag">MySQL</span>
+            </div>
+            <span class="rm-pulse"><span class="rm-pulse-bead"></span> In active development</span>
+          </div>
+        </div>
+
+        <div class="rm-item rm-left">
+          <div class="rm-dot">05</div>
+          <div class="rm-card reveal">
+            <span class="rm-badge">Latest AI Research</span>
+            <h3>BioRAG</h3>
+            <p>A Retrieval-Augmented Generation system that uses NCERT Biology textbooks as its
+               knowledge base to answer academic queries accurately.</p>
+            <div class="rm-tech">
+              <span class="tech-tag">Python</span>
+              <span class="tech-tag">FAISS</span>
+              <span class="tech-tag">RAG</span>
+              <span class="tech-tag">LLM</span>
+            </div>
+            <a href="#" class="rm-link">View Project →</a>
+          </div>
+        </div>
+
+      </div>
     </div>
   </section>
 
